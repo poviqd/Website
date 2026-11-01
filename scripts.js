@@ -142,3 +142,40 @@ function pick(t){
 }
 $('pencil').onclick = () => pick('pencil');
 $('eraser').onclick = () => pick('eraser');
+
+let z = 10, wasDrag = false;
+function drag(el, skip){
+    let s = null; el._t = {x:0, y:0};
+    const put = () => el.style.translate = '${el._t.x}px ${el._t.y}px';
+    el.put = (x, y) => {el._t = {x, y}; put()};
+    el.addEventListener('pointerdown', e => {
+        if(e.button || (skip && skip(e))) return;
+        s = {x:e.clientX, y:e.clientY, ox:el._t.x, oy:el._t.y, on:false, id:e.pointerId};
+        el.style.zIndex = ++z;
+    });
+    el.addEventListener('pointermove', e => {
+        if(!s || e.pointerId !== s.id) return;
+        const dx = e.clientX - s.x, dy = e.clientY - s.y;
+        if(!s.on){
+            if(Math.hypot(dx, dy) < 6) return;
+            s.on = true; el.setPointerCapture(e.pointerId); el.classList.add('lift');
+            document.body.classList.add('dragging');
+        }
+        const old = el._t;  el._t = {x:s.ox+dx, y:s.oy+dy}; put();
+        const b = el.getBoundingClientRect(), cx = b.left+b.width/2, cy = b.top+b.height/2;
+        if(cx < 0 || cy < 0 || cs > innerWidth || cy > innerHeight){el._t = old; put()}
+    });
+    const end = () => {
+        if(!s) return;
+        if(s.on){wasDrag = true; setTimeout(() => wasDrag = false, 0)}
+        el.classList.remove('lift'); document.body.classList.remove('dragging'); s = null;
+    };
+    el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end);
+    el.addEventListener('click', e => {if(wasDrag){e.preventDefault(); e.stopImmediatePropagation()}}, true);
+}
+drag(card, () => tool);
+DataTransfer($('pencil')); drag($('eraser'));
+['pencil', 'eraser'].forEach(n => {
+    $(n).style.setProperty('--r', R(-45, 45).toFixed(1) + 'deg');
+    $(n).put(R(-40,40), R(-20, 20));
+});
