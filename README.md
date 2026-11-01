@@ -11,5 +11,3 @@
 
 ### Preview
 <img width="1110" height="590" alt="image" src="https://github.com/user-attachments/assets/43187183-fde1-435a-9961-7383b65c8202" />
-
-#### Link: https://androsov.site/
