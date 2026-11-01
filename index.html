@@ -8,17 +8,81 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="ink"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.4"/></filter></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="ink">
+        <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="2" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="1.4"/>
+    </filter>
+</svg>
+
 <div class="table"></div>
 <div class="vignette"></div>
+
 <div class="card" id="card">
     <div class="paper" id="paper"></div>
     <a class="phone emb" id="tg" target="_blank" rel="noopener"></a>
     <a class="firm emb" id="gh" target="_blank" rel="noopener"></a>
-    <div class="center emb"><div class="name" id="name"></div><div class="role" id="role"></div></div>
-    <div class="foot emb"><span id="addr"></span> <a id="mail"></a></div>
+    <div class="center emb">
+        <div class="name" id="name"></div>
+        <div class="role" id="role"></div>
+    </div>
+    <div class="foot emb">
+        <span id="addr"></span>
+        <a id="mail"></a>
+    </div>
     <canvas id="wear" width="1400" height="800"></canvas>
     <canvas id="draw" width="1400" height="800"></canvas>
+</div>
+
+<div class="tools">
+    <button class="tool" id="pencil" aria-label="Pencil" aria-pressed="false">
+        <svg viewBox="0 0 332 44" aria-hidden="true">
+            <defs>
+                <linearGradient id="pf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4d6da"/><stop offset=".25" stop-color="#fbfbfc"/><stop offset=".5" stop-color="#9a9da4"/><stop offset=".75" stop-color="#e3e4e8"/><stop offset="1" stop-color="#6c6f76"/></linearGradient>
+                <linearGradient id="pe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3a3ad"/><stop offset=".5" stop-color="#e2808e"/><stop offset="1" stop-color="#b85866"/></linearGradient>
+                <linearGradient id="pw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1d6a8"/><stop offset=".5" stop-color="#dcb67d"/><stop offset="1" stop-color="#a98150"/></linearGradient>
+            </defs>
+            <rect x="2" y="8" width="24" height="28" rx="7" fill="url(#pe)"/>
+            <rect x="20" y="7" width="26" height="30" fill="url(#pf)"/>
+            <path d="M26 7v30M32 7v30M38 7v30" stroke="#5d6067" stroke-opacity=".55" stroke-width="1.3"/>
+            <rect x="46" y="7" width="204" height="9" fill="#f6cf52"/>
+            <rect x="46" y="16" width="204" height="12" fill="#e6a81b"/>
+            <rect x="46" y="28" width="204" height="9" fill="#ac730f"/>
+            <path d="M46 16h204M46 28h204" stroke="#000" stroke-opacity=".18"/>
+            <rect x="50" y="9" width="190" height="2" rx="1" fill="#fff" fill-opacity=".55"/>
+            <text x="96" y="25" font-size="7.5" font-weight="700" fill="#6b3f00" fill-opacity=".8" font-family="Arial,Helvetica,sans-serif" letter-spacing="1.6">HB · 2 · GRAPHITE</text>
+            <path d="M250 7L254 13L250 18L255 24L250 30L254 34L250 37L296 27L296 17Z" fill="url(#pw)"/>
+            <path d="M252 22L296 22L296 27L251 36Z" fill="#7a5530" fill-opacity=".28"/>
+            <path d="M262 14L296 19.5M262 30L296 24.5" stroke="#8a6338" stroke-opacity=".5"/>
+            <path d="M296 17.2L328 22L296 26.8Z" fill="#2b2b30"/>
+            <path d="M298 19.6L322 21.8" stroke="#8a8a94" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+    </button>
+
+    <button class="tool" id="eraser" aria-label="Eraser" aria-pressed="false">
+        <svg viewBox="0 0 130 70" aria-hidden="true">
+            <defs>
+                <linearGradient id="ev" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".6" stop-color="#eae7de"/><stop offset="1" stop-color="#bcb8ab"/></linearGradient>
+                <linearGradient id="es" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4380d6"/><stop offset=".55" stop-color="#2a5ca6"/><stop offset="1" stop-color="#173a70"/></linearGradient>
+                <clipPath id="ec"><rect x="3" y="6" width="124" height="58" rx="8"/></clipPath>
+                <filter id="en" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .3  0 0 0 0 .28  0 0 0 0 .22  0 0 0 .6 -.2"/></filter>
+            </defs>
+            <g clip-path="url(#ec)">
+                <rect x="3" y="6" width="124" height="58" fill="url(#ev)"/>
+                <rect x="3" y="6" width="124" height="58" filter="url(#en)" opacity=".55"/>
+                <ellipse cx="14" cy="38" rx="16" ry="24" fill="#8a8578" fill-opacity=".28"/>
+                <path d="M6 26L22 30M5 40L20 44M8 52L24 50" stroke="#4a4a4f" stroke-opacity=".35" stroke-width="1.4" stroke-linecap="round"/>
+                <rect x="40" y="6" width="56" height="58" fill="url(#es)"/>
+                <path d="M40 6v58M96 6v58" stroke="#0b1d3a" stroke-opacity=".5" stroke-width="1.2"/>
+                <rect x="40" y="39" width="56" height="4" fill="#d83a3a"/>
+                <text x="68" y="31" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff" font-family="Arial,Helvetica,sans-serif" letter-spacing="1.6">ERASER</text>
+                <text x="68" y="54" text-anchor="middle" font-size="6" fill="#cfe0ff" font-family="Arial,Helvetica,sans-serif" letter-spacing="1">DUST-FREE</text>
+                <rect x="3" y="6" width="124" height="8" fill="#fff" fill-opacity=".4"/>
+                <rect x="3" y="54" width="124" height="10" fill="#000" fill-opacity=".16"/>
+            </g>
+            <rect x="3" y="6" width="124" height="58" rx="8" fill="none" stroke="#000" stroke-opacity=".28" stroke-width="1.2"/>
+        </svg>
+    </button>
 </div>
 
 
