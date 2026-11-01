@@ -49,3 +49,45 @@ filter:drop-shadow(1px 2px 1px rgba(0,0,0,.6)) drop-shadow(8px 12px 8px rgba(0,0
 .p2{color:#252a28;--ts:0 .6px 0 rgba(255,255,255,.4),0 0 1px rgba(0,0,0,.3)}
 .p3{color:#5d5c5a;--ts:0 1px 0 rgba(255,255,255,.8),0 -.6px 0 rgba(0,0,0,.25)}
 
+.card{z-index:1;transition:box-shadow .2s,scale .2s}
+.card,.tool{touch-action:none}
+canvas{cursor:grab}
+.tool{position:relative;z-index:2;cursor:grab;transition:transform .28s cubic-bezier(.3,1.5,.5,1),filter .28s,scale .2s}
+.card.lift{scale:1.03;box-shadow:2px 4px 2px #0006,8px 14px 10px #0005,26px 40px 36px -2px #0006,46px 70px 60px -12px #0005}
+.tool.lift{scale:1.06;filter:drop-shadow(3px 8px 4px rgba(0,0,0,.4)) drop-shadow(18px 30px 16px rgba(0,0,0,.3))}
+body.dragging,body.dragging *{cursor:grabbing!important}
+
+.p4{color:#26272a;--ts:0 1px 0 rgba(255,255,255,.85),0 -.6px 0 rgba(0,0,0,.28),0 0 1.1px rgba(0,0,0,.3)}
+.p5{color:#1f1f1e;--ts:0 .6px 0 rgba(255,255,255,.5),0 0 .9px rgba(0,0,0,.35)}
+.f2 .name,.f2 .name b{text-transform:uppercase;font-variant-caps:normal;font-weight:700}
+.f2 .role,.f2 .firm small{font-variant-caps:normal}
+.f2 .firm{text-transform:uppercase;font-variant-caps:normal}
+.f2 .firm small{text-transform:none}
+.f2 .foot{font-variant-caps:normal;text-transform:uppercase;font-weight:500}
+.f2 .phone{font-weight:500}
+.f3 .role,.f3 .firm small{font-variant-caps:normal}
+.f3 .firm{font-variant-caps:normal;text-transform:uppercase}
+.f3 .firm small{text-transform:none;font-weight:500}
+.f3 .foot{font-variant-caps:normal;text-transform:uppercase;font-weight:500}
+.f3 .name{font-weight:500}
+.f4{font-family:"Marcellus",Georgia,serif;--k:.95;letter-spacing:.05em}
+.f4 .phone,.f4 .firm,.f4 .name,.f4 .name b,.f4 .role,.f4 .foot{font-weight:400}
+.p4{color:#14130f;--ts:0 0 .6px rgba(0,0,0,.5),0 -.5px 0 rgba(0,0,0,.35),0 .8px 0 rgba(255,255,255,.55)}
+.p5{color:#2b2c30;--ts:0 -.8px 0 rgba(0,0,0,.45),0 1px 0 rgba(255,255,255,.9),0 0 1px rgba(0,0,0,.4)}
+
+.egg{font-variant-caps:normal;color:#222}
+.egg .phone,.egg .firm,.egg .center,.egg .foot{display:none}
+.egglayer{position:absolute;inset:0;z-index:2;pointer-events:none;font-family:Arial,Helvetica,sans-serif;color:#222}
+.egglayer>*{position:absolute;margin:0}
+.egglayer .c{left:0;right:0;text-align:center}
+.egglayer .l{left:6%}
+.egglayer .r{right:6%;text-align:right}
+
+
+/* toucan */
+.lb{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:rgba(10,6,2,.72);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);animation:lbin .25s ease;cursor:zoom-out;padding:16px;box-sizing:border-box}
+.lb.out{opacity:0;transition:opacity .25s}
+.lb figure{margin:0;background:#f7f5ef;padding:3.2vmin 3.2vmin 9vmin;box-shadow:0 2px 3px #0008,12px 24px 50px #000a;transform:rotate(-2.2deg);animation:lbpop .4s cubic-bezier(.2,1.3,.4,1)}
+.lb img{display:block;width:min(78vmin,560px);height:auto}
+@keyframes lbin{from{opacity:0}}
+@keyframes lbpop{from{transform:rotate(6deg) scale(.6);opacity:0}}
