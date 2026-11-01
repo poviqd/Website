@@ -91,3 +91,7 @@ body.dragging,body.dragging *{cursor:grabbing!important}
 .lb img{display:block;width:min(78vmin,560px);height:auto}
 @keyframes lbin{from{opacity:0}}
 @keyframes lbpop{from{transform:rotate(6deg) scale(.6);opacity:0}}
+
+.card.inking a{pointer-events: none}
+
+.card{user-select: none; -webkit-user-select: none}
