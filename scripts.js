@@ -150,6 +150,7 @@ function drag(el, skip){
   el.put = (x,y) => {el._t = {x,y}; put()};
   el.addEventListener('pointerdown', e => {
     if(e.button || (skip && skip(e))) return;
+    e.preventDefault();
     s = {x:e.clientX, y:e.clientY, ox:el._t.x, oy:el._t.y, on:false, id:e.pointerId};
     el.style.zIndex = ++z;
   });

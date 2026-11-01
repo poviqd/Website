@@ -1,7 +1,7 @@
 :root{--bg:#8f5f2c; --fg:#2b2a28;box-sizing:border-box;padding-top:env(safe-area-inset-top, 0px);padding-bottom:env(safe-area-inset-bottom, 0px)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#7a4f22}}
 :root[data-theme="dark"]{--bg:#7a4f22}
-html,body{height:100%;margin:0}
+html,body{height:100%;margin:0; overflow: hidden; overflow: clip;overscroll-behavior: none}
 body{background: var(--bg);color:var(--fg);font-family: Georgia,serif;display:flex;flex-direction: column;align-items: center; justify-content: center; gap: 34px;padding: 16px;box-sizing: border-box;overflow-x: hidden}
 
 .table{position: fixed; inset: -45%; z-index: -1; transform: rotate(-24deg); background-color: #8c5b29; background-size: 100% 100%; background-image: radial-gradient(circle at 60% 57%,transparent 116px,rgba(60,25,0,.3) 120px,rgba(60,25,0,.12) 127px,transparent 134px),radial-gradient(circle at 60% 57%,rgba(60,25,0,.06) 118px,transparent 121px),
@@ -12,7 +12,7 @@ url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='1800' hei
 
 .vignette{position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(115deg,transparent 38%,rgba(255,235,200,.07) 48%,transparent 58%),radial-gradient(ellipse at 28% 18%,rgba(255,225,170,.26),transparent 50%),radial-gradient(ellipse at 50% 45%,transparent 38%,rgba(0,0,0,.55))}
 
-.card{position: relative; width: min(92vw, 720px); aspect-ratio:7/4;container-type:inline-size;overflow:hidden;color:#2a2724;
+.card{position: relative; width: min(92vw, 720px, max(240px, calc((100dvh - 170px) * 1.75))); aspect-ratio:7/4;container-type:inline-size;overflow:hidden;color:#2a2724;
 font-variant-caps:small-caps;box-shadow:1px 2px 1px #0007,3px 5px 4px #0005,10px 16px 18px -2px #0006,22px 34px 40px -12px #0005;animation:drop .7s cubic-bezier(.2,.8,.2,1)}
 .f1{font-family:"EB Garamond",Georgia,serif;--k:1.08;font-variant-numeric:oldstyle-nums}
 .f2{font-family:"Libre Bodoni",Georgia,serif;--k:.78}
@@ -95,3 +95,5 @@ body.dragging,body.dragging *{cursor:grabbing!important}
 .card.inking a{pointer-events: none}
 
 .card{user-select: none; -webkit-user-select: none}
+
+body{user-select: none; -webkit-user-select: none}
