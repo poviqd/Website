@@ -9,9 +9,10 @@
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <filter id="ink">
+    <filter id="ink" x="-5%" y="-25%" width="110%" height="150%" color-interpolation-filters="sRGB">
         <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="2" result="n"/>
-        <feDisplacementMap in="SourceGraphic" in2="n" scale="1.4"/>
+        <feColorMatrix in="n" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0 1" result="m"/>
+        <feDisplacementMap in="SourceGraphic" in2="m" scale="1.4"/>
     </filter>
 </svg>
 
