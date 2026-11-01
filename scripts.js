@@ -109,3 +109,36 @@ if(L === 2) $('paper').style.filter = 'brightness(.96) saturate(.85)';
     }
   }
 })();
+
+const cv = $('draw'), ctx = cv.getContext('2d');
+const CUR = {
+  pencil: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><path d='M2 30l3-9 17-17 6 6-17 17z' fill='%23e0a526' stroke='%23222' stroke-width='1.5'/><path d='M2 30l3-9 6 6z' fill='%23333'/></svg>") 2 30, crosshair`,
+  eraser: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect x='5' y='9' width='22' height='14' rx='3' fill='%23f2efe8' stroke='%23222' stroke-width='1.5'/><rect x='5' y='9' width='9' height='14' rx='3' fill='%232c5fa8'/></svg>") 16 16, cell`
+};
+let tool = null, drawing = false, last = null;
+const pos = e => {const b = cv.getBoundingClientRect(); return {x:(e.clientX-b.left)*cv.width/b.width, y:(e.clientY-b.top)*cv.height/b.height, p:e.pressure||.5}};
+function stroke(a,b){
+  ctx.lineCap = ctx.lineJoin = 'round';
+  if(tool === 'eraser'){
+    ctx.globalCompositeOperation = 'destination-out'; ctx.globalAlpha = 1; ctx.lineWidth = 34;
+    ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); return;
+  }
+  ctx.globalCompositeOperation = 'source-over';
+  const w = 2.2 + b.p*1.8, j = () => (Math.random()-.5)*1.4;
+  ctx.strokeStyle = '#34343a'; ctx.globalAlpha = .32*(.6+b.p); ctx.lineWidth = w;
+  ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+  const n = Math.ceil(Math.hypot(b.x-a.x,b.y-a.y)*1.2)+3;
+  ctx.fillStyle = '#2a2a2f';
+  for(let i = 0; i < n; i++){ const t = Math.random(); ctx.globalAlpha = R(.25,.7); ctx.fillRect(a.x+(b.x-a.x)*t+R(-w,w)*.6, a.y+(b.y-a.y)*t+R(-w,w)*.6, R(.5,1.3), R(.5,1.3)); }
+}
+cv.addEventListener('pointerdown', e => {if(!tool) return; drawing = true; cv.setPointerCapture(e.pointerId); last = pos(e); stroke(last,{x:last.x+.1,y:last.y+.1,p:last.p})});
+cv.addEventListener('pointermove', e => {if(!drawing) return; const q = pos(e); stroke(last,q); last = q});
+['pointerup','pointercancel'].forEach(t => cv.addEventListener(t, () => drawing = false));
+function pick(t){
+  tool = tool === t ? null : t;
+  ['pencil','eraser'].forEach(n => $(n).setAttribute('aria-pressed', tool === n));
+  cv.style.cursor = tool ? CUR[tool] : 'grab';
+  card.classList.toggle('inking', !!tool);
+}
+$('pencil').onclick = () => pick('pencil');
+$('eraser').onclick = () => pick('eraser');
