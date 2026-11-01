@@ -199,3 +199,11 @@ function showPhoto(){
 }
 
 card.addEventListener('click', e => {if(tool && e.target.closest('a')) e.preventDefault()}, true);
+
+const VIDEO_URL = 'https://www.youtube.com/watch?v=p94QPaI4SxE';
+const aye = document.querySelector('.aye');
+card.addEventListener('click', e => {
+    if(e.detail !== 3 || tool) return;
+    const b = aye.getBoundingClientRect();
+    if(b.width > 0 && e.clientX >= b.left-6 && e.clientX <= b.right+6 && e.clientY >= b.top-6 && e.clientY <= b.bottom+6) window.open(VIDEO_URL, '_blank', 'noopener');
+});
