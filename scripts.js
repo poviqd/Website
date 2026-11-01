@@ -60,3 +60,52 @@ else{card.classList.add(p.font, 'p' + pi); if(p.dots) $('tg').textContent = CONF
 card.style.setProperty('--la', R(100,170).toFixed(0) + 'deg');
 card.style.setProperty('--ld', (p.ld ?? R(.05,.2)).toFixed(2));
 card.style.transform = `rotate(${R(-1.8,1.2).toFixed(2)}deg)`;
+
+const r = Math.random(), L = egg ? egg.L : r < .3 ? 0 : r < .7 ? 1 : 2;
+card.style.borderRadius = [2,3,7][L] + 'px';
+if(L === 2) $('paper').style.filter = 'brightness(.96) saturate(.85)';
+(function(){
+  const c = $('wear'), x = c.getContext('2d'), W = c.width, H = c.height;
+  const line = (x1,y1,x2,y2,col,w) => {x.strokeStyle = col; x.lineWidth = w; x.beginPath(); x.moveTo(x1,y1); x.lineTo(x2,y2); x.stroke()};
+  const blot = (cx,cy,rad,col) => {const g = x.createRadialGradient(cx,cy,0,cx,cy,rad); g.addColorStop(0,col); g.addColorStop(1,'rgba(0,0,0,0)'); x.fillStyle = g; x.fillRect(cx-rad,cy-rad,rad*2,rad*2)};
+  x.lineCap = 'round';
+  for(let i = 0; i < [60,500,1600][L]; i++){
+    x.fillStyle = Math.random() < .5 ? `rgba(255,255,255,${R(.1,.4)})` : `rgba(60,45,30,${R(.05,.25)})`;
+    const s = R(.5, L ? 2.6 : 1.5); x.fillRect(R(0,W), R(0,H), s, s);
+  }
+  if(!L) return;
+  const g = x.createRadialGradient(W/2,H/2,H*.3,W/2,H/2,W*.62);
+  g.addColorStop(0,'rgba(150,110,50,0)'); g.addColorStop(1,`rgba(150,110,50,${[0,.16,.34][L]})`);
+  x.fillStyle = g; x.fillRect(0,0,W,H);
+  [[0,0],[W,0],[0,H],[W,H]].forEach(([cx,cy]) => { if(L === 2 || Math.random() < .5) blot(cx,cy,R(50,130)*L,'rgba(110,95,75,.45)') });
+  for(let i = 0; i < L*16; i++){
+    const t = R(0,1), len = R(40,200), e = R(1,4), col = `rgba(255,255,255,${R(.3,.6)})`;
+    [() => line(t*W,e,t*W+len,e,col,R(1,3)), () => line(t*W,H-e,t*W+len,H-e,col,R(1,3)),
+     () => line(e,t*H,e,t*H+len,col,R(1,3)), () => line(W-e,t*H,W-e,t*H+len,col,R(1,3))][Math.random()*4|0]();
+  }
+  const dir = R(0,Math.PI);
+  for(let i = 0; i < [0,25,100][L]; i++){
+    const sx = R(0,W), sy = R(0,H), a = dir + R(-.4,.4), len = R(15,90);
+    line(sx,sy,sx+Math.cos(a)*len,sy+Math.sin(a)*len, Math.random() < .6 ? 'rgba(255,255,255,.35)' : 'rgba(70,60,50,.18)', R(.6,2));
+  }
+  for(let i = 0; i < [0,1,3][L]; i++){
+    const x1 = R(.05,.95)*W, x2 = R(.05,.95)*W, cx = (x1+x2)/2 + R(-40,40);
+    const path = o => {x.beginPath(); x.moveTo(x1+o,0); x.quadraticCurveTo(cx+o,H/2,x2+o,H); x.stroke()};
+    x.strokeStyle = 'rgba(60,45,30,.06)'; x.lineWidth = 9; path(0);
+    x.strokeStyle = `rgba(50,40,30,${L === 2 ? .3 : .18})`; x.lineWidth = 1.5; path(0);
+    x.strokeStyle = 'rgba(255,255,255,.55)'; x.lineWidth = 1.5; path(2);
+  }
+  if(Math.random() < .5){
+    const cx = R(.2,.8)*W, cy = R(.2,.8)*H, rot = R(0,3);
+    for(let k = 2; k < 14; k++){x.strokeStyle = 'rgba(90,80,70,.07)'; x.lineWidth = 2; x.beginPath(); x.ellipse(cx,cy,k*5,k*7,rot,0,6.3); x.stroke()}
+  }
+  if(L === 2 || Math.random() < .3){
+    blot(R(.1,.9)*W, R(.1,.9)*H, R(60,150), 'rgba(140,100,50,.18)');
+    if(L === 2 && Math.random() < .6){
+      const cx = R(.2,.8)*W, cy = R(.25,.75)*H, rad = R(60,110);
+      blot(cx,cy,rad,'rgba(140,95,45,.1)');
+      x.strokeStyle = 'rgba(110,70,30,.28)'; x.lineWidth = R(4,9);
+      x.beginPath(); x.arc(cx,cy,rad,R(0,1),R(5,6.2)); x.stroke();
+    }
+  }
+})();
