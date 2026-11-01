@@ -180,7 +180,7 @@ drag($('pencil')); drag($('eraser'));
   $(n).put(R(-40,40), R(-20, 20));
 });
 
-const TOUCAN = 'toucan.jpg';
+const TOUCAN = 'img/toucan.jpg';
 const tee = document.querySelector('.tee');
 const onTee = e => {
     if(tool) return false;
